@@ -53,8 +53,8 @@ def inverseDCT(inverseZigZagMatrix):
 
             for u in range(4):
                 for v in range(4):
-                    constU = 1 / 2
-                    constV = 1 / 2
+                    constU = 1 / math.sqrt(2)
+                    constV = 1 / math.sqrt(2)
                     if u == 0:
                         constU = 1 / 2
                     if v == 0:
@@ -78,9 +78,13 @@ def zigZagScan(fdcMatrix, n):
             index = zigZagScanIndex[i][j]
             scanResult[index] = fdcMatrix[i][j]
 
-    #Truncate coefficient : 只保留n個係數, 其於係數變成0
-    for i in range(n):
-        truncateCoeff[i] = scanResult[i]
+    #Truncate coefficient : 只保留絕對值前5大係數, 其於係數變成0
+    truncateCoeff[0] = scanResult[0]
+    truncateCoeff[1] = scanResult[1]
+    truncateCoeff[2] = scanResult[2]
+    truncateCoeff[5] = scanResult[5]
+    truncateCoeff[8] = scanResult[8]
+    
 
     return truncateCoeff
 
